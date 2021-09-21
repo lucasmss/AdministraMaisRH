@@ -1,6 +1,7 @@
 package com.administra.models;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Data
+@Entity	
 @Table(name = "servico_tb")
 public class Servico {
 	
@@ -31,7 +31,11 @@ public class Servico {
 	private Cliente clientes;
 	
 	@Column
-	private BigDecimal vaolor;
+	private BigDecimal valor;
+	
+	@Column
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate data;
 
 	public Integer getId() {
 		return id;
@@ -39,6 +43,22 @@ public class Servico {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	public String getDescricao() {
@@ -57,11 +77,4 @@ public class Servico {
 		this.clientes = clientes;
 	}
 
-	public BigDecimal getVaolor() {
-		return vaolor;
-	}
-
-	public void setVaolor(BigDecimal vaolor) {
-		this.vaolor = vaolor;
-	}
 }

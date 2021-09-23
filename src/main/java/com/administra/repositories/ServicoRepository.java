@@ -15,5 +15,4 @@ public interface ServicoRepository extends JpaRepository<Servico, Integer>{
 	List<Servico> findByNameAndMes(
 			@Param("name") String name, @Param("mes") Integer mes);
 
-
 }

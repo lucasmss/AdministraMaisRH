@@ -24,7 +24,6 @@ import com.administra.util.BigDecimalConverter;
 
 @RestController
 @RequestMapping("/api/servico-prestado")
-@CrossOrigin("http://localhost:4200")
 public class ServicoController {
 	
 	private final ClientesRepository clienteRepository;

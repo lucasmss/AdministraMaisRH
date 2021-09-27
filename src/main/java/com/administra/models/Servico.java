@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -23,14 +24,17 @@ public class Servico {
 	private Integer id;
 	
 	@Column(nullable = false, length = 150)
+	@NotNull(message = "{campo.descricao.obrigatorio}")
 	private String descricao;
 	
 
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
+	@NotNull(message = "{campo.cliente.obrigatorio}")
 	private Cliente clientes;
 	
 	@Column
+	@NotNull(message = "{campo.valor.obrigatorio}")
 	private BigDecimal valor;
 	
 	@Column

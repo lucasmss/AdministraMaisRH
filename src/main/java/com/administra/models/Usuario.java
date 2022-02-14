@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
@@ -19,9 +20,11 @@ public class Usuario {
 	private Integer id;
 	
 	@Column(name = "usuario", unique = true)
+	@NotEmpty(message = "{campo.login.obrigatorio}")
 	private String username;
 	
 	@Column(name = "senha")
+	@NotEmpty(message = "{campo.senha.obrigatorio}")
 	private String password;
 
 	public Integer getId() {

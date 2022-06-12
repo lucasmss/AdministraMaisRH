@@ -1,49 +1,37 @@
 package com.administra.config;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+@Configuration
+public class WebConfig {
 
-@Component
-public class WebConfig implements Filter {
+	@Bean
+	public FilterRegistrationBean<CorsFilter> corsFilterFilterRegistrationBean(){
+		List<String> all = Arrays.asList("*");
 
-	private final Logger log = LoggerFactory.getLogger(WebConfig.class);
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedOrigins(all);
+		corsConfiguration.setAllowedHeaders(all);
+		corsConfiguration.setAllowedMethods(all);
+		corsConfiguration.setAllowCredentials(false);
 
-	public WebConfig() { 
-		
-		log.info("WebConfig init");
-	}
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfiguration);
 
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+		CorsFilter corsFilter = new CorsFilter(source);
+		FilterRegistrationBean<CorsFilter> filter = new FilterRegistrationBean<>(corsFilter);
+		filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
-
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-		response.setHeader("Access-Control-Max-Age", "https://boa-compra-front.vercel.app/");
-		response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-
-		chain.doFilter(req, res);
-	}
-
-	public void init(FilterConfig filterConfig) {
-	}
-
-	public void destroy() {
+		return filter;
 	}
 
 

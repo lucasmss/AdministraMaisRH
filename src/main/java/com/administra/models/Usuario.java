@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Entity
-@Data
 @Table (name="usuario_tb")
 public class Usuario {
 	

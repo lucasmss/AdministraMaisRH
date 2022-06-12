@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Entity
-@Data	
 @Table(name ="cliente_tb")
 public class Cliente {
 

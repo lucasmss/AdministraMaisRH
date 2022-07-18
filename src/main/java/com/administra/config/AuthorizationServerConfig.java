@@ -30,6 +30,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		return new JwtTokenStore(accessTokenConverter());
 	}
 
+	@Bean
 	public JwtAccessTokenConverter accessTokenConverter(){
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
 		tokenConverter.setSigningKey(signingKey);
@@ -39,10 +40,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
-			.tokenStore(tokenStore())
+				.tokenStore(tokenStore())
 				.accessTokenConverter(accessTokenConverter())
-			.authenticationManager(authenticationManager);
-		
+				.authenticationManager(authenticationManager);
 	}
 	
 	@Override

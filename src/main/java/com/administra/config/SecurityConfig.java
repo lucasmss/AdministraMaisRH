@@ -20,9 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
 		auth
-			.userDetailsService(usuarioService)
+				.userDetailsService(usuarioService)
 				.passwordEncoder(passwordEncoder());
 	}
 	
